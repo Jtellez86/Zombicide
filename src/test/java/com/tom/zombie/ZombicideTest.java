@@ -24,16 +24,6 @@ public class ZombicideTest {
     }
 
     @Test
-    public void shouldComputeWeaponDamageForPan() {
-        when(dice.roll(1)).thenReturn(asList(6));
-        Zombicide zombicide = new Zombicide();
-        zombicide.dice = dice;
-
-        List<Integer> attackDamage = zombicide.computeAttackDamage("The Pan");
-        assertThat(attackDamage, is(asList(1)));
-    }
-
-    @Test
     public void shouldComputeNoWeaponDamageForKatana() {
         when(dice.roll(1)).thenReturn(asList(3));
         Zombicide zombicide = new Zombicide();

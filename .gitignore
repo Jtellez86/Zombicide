@@ -2,3 +2,5 @@ build/
 .idea/
 .gradle/
 *.iml
+*.DS_Store*
+.gitignore
