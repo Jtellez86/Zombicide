@@ -32,6 +32,8 @@ public class Zombicide {
 
     }
 
+
+    //how will the Survivor know about the zone they are in?
     protected void attackZombies(Integer attackDamage) {
          zone.getZombies()
              .stream()
@@ -62,13 +64,5 @@ public class Zombicide {
                 return;
         }
         throw new AssertionError("Unknown Zombie type " + aliveZombie.getType());
-    }
-
-    protected List<Integer> computeWeaponDamage(int numberOfDice, int minScoreForDamage, int damageAmount) {
-        return dice.roll(numberOfDice)
-                   .stream()
-                   .filter(roll -> roll >= minScoreForDamage)
-                   .map(goodRoll -> damageAmount)
-                   .collect(Collectors.toList());
     }
 }
