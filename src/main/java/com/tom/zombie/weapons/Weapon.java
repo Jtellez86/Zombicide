@@ -5,5 +5,9 @@ import java.util.List;
 public interface Weapon {
 
 
-    public List<Integer> attemptAttack();
+    public String getWeaponName();
+    int getDamage();
+
+    public List<Integer> determineDamageFromWeapon();
+
 }

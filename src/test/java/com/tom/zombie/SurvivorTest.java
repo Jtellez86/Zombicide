@@ -1,5 +1,6 @@
 package com.tom.zombie;
 
+import com.tom.zombie.weapons.Pan;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -10,19 +11,19 @@ public class SurvivorTest {
     @Test
     public void shouldKillWalkerZombie() {
         Zombie zombie1 = new Zombie("Walker");
-        Survivor survivor = new Survivor("Pan");
+        Survivor survivor = new Survivor(new Pan());
 
-        survivor.attack(zombie1, 1);
+        survivor.attack(zombie1);
         assertThat(zombie1.isAlive(), is(false));
     }
 
     @Test
     public void shouldNotKillFattyZombie() {
-        Zombie zombie1 = new Zombie("Fatty");
-        Zombicide zombicide = new Zombicide();
+        Zombie fattyZombie = new Zombie("Fatty");
+        Survivor survivor = new Survivor(new Pan());
 
-        zombicide.attack(zombie1, 1);
-        assertThat(zombie1.isAlive(), is(true));
+        survivor.attack(fattyZombie);
+        assertThat(fattyZombie.isAlive(), is(true));
     }
 
 }

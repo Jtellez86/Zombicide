@@ -24,16 +24,6 @@ public class ZombicideTest {
     }
 
     @Test
-    public void shouldComputeNoWeaponDamageForKatana() {
-        when(dice.roll(1)).thenReturn(asList(3));
-        Zombicide zombicide = new Zombicide();
-        zombicide.dice = dice;
-
-        List<Integer> attackDamage = zombicide.computeAttackDamage("Katana");
-        assertThat(attackDamage.isEmpty(), is(true));
-    }
-
-    @Test
     public void shouldKillWalkerZombie() {
         Zombie zombie1 = new Zombie("Walker");
         Zombicide zombicide = new Zombicide();

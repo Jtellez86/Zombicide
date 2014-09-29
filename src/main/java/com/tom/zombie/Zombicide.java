@@ -23,9 +23,9 @@ public class Zombicide {
 
     protected void launchAttack(Survivor survivor) {
 
-        List<Integer> attackDamage = computeAttackDamage(survivor.getWeaponName());
+        List<Integer> attackDamage = survivor.getPlayerWeapon().determineDamageFromWeapon();
 
-        System.out.println("\n" + survivor.getWeaponName() + " launchAttack damage " + attackDamage);
+        System.out.println("\n" + survivor.getPlayerWeapon().getWeaponName() + " launchAttack damage " + attackDamage);
 
         attackDamage.stream()
                     .forEach(this::attackZombies);
@@ -62,22 +62,6 @@ public class Zombicide {
                 return;
         }
         throw new AssertionError("Unknown Zombie type " + aliveZombie.getType());
-    }
-
-    protected List<Integer> computeAttackDamage(String weaponName) {
-
-        switch (weaponName) {
-            case "The Pan":     return computeWeaponDamage(1, 6, 1);
-            case "Pistol":
-            case "Crow Bar":    return computeWeaponDamage(1, 4, 1);
-            case "Fire Ax":     return computeWeaponDamage(1, 4, 2);
-            case "Rifle":       return computeWeaponDamage(1, 3, 1);
-            case "Katana":      return computeWeaponDamage(2, 4, 1);
-            case "Shot Gun":    return computeWeaponDamage(2, 4, 2);
-            case "Claw Hammer": return computeWeaponDamage(3, 5, 1);
-        }
-
-        throw new AssertionError("Unknown weapon " + weaponName);
     }
 
     protected List<Integer> computeWeaponDamage(int numberOfDice, int minScoreForDamage, int damageAmount) {

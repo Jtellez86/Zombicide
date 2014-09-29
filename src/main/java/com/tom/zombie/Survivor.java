@@ -1,5 +1,6 @@
 package com.tom.zombie;
 
+import com.tom.zombie.weapons.Weapon;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
@@ -11,10 +12,11 @@ public class Survivor {
 
     boolean isAlive = true;
     int hitPoints = 2;
-    final String weaponName;
 
-    public void attack(Zombie zombieBeingHit, int damageToZombie) {
-        System.out.println("Attacking " + zombieBeingHit + " with damage of " + damageToZombie);
+    final Weapon playerWeapon;
+
+    public void attack(Zombie zombieBeingHit) {
+        System.out.println("Attacking " + zombieBeingHit + " with damage of " + playerWeapon.getDamage());
 
         switch (zombieBeingHit.getType()) {
             case "Walker" :
@@ -23,13 +25,13 @@ public class Survivor {
                 return;
 
             case "Fatty":
-                if (damageToZombie >= 2) {
+                if (playerWeapon.getDamage() >= 2) {
                     zombieBeingHit.killed();
                 }
                 return;
 
             case "Abomination":
-                if (damageToZombie >= 3) {
+                if (playerWeapon.getDamage() >= 3) {
                     zombieBeingHit.killed();
                 }
                 return;

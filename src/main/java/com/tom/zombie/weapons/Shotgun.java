@@ -4,13 +4,12 @@ import com.tom.zombie.util.WeaponDamageCalculator;
 
 import java.util.List;
 
-public class Katana implements Weapon {
-
-    public final String WEAPON_NAME = "Katana";
+public class Shotgun implements Weapon {
+    final String WEAPON_NAME = "Shotgun";
 
     public static final int DICE_ROLLED = 2;
     public static final int SUCCESSFUL_ROLL = 4;
-    public static final int DAMAGE = 1;
+    public static final int DAMAGE = 2;
 
     WeaponDamageCalculator calculator = new WeaponDamageCalculator();
 

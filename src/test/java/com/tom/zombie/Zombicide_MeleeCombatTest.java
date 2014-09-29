@@ -1,5 +1,9 @@
 package com.tom.zombie;
 
+import com.tom.zombie.weapons.ClawHammer;
+import com.tom.zombie.weapons.FireAxe;
+import com.tom.zombie.weapons.Pan;
+import com.tom.zombie.weapons.Shotgun;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -30,8 +34,8 @@ public class Zombicide_MeleeCombatTest {
 
         Zone zone = new Zone();
         zone.setSurvivors(asList(
-                new Survivor("Claw Hammer"),
-                new Survivor("The Pan")
+                new Survivor(new ClawHammer()),
+                new Survivor(new Pan())
                                 ));
         zone.setZombies(asList(
                 new Zombie("Runner"),
@@ -59,9 +63,9 @@ public class Zombicide_MeleeCombatTest {
 
         Zone zone = new Zone();
         zone.setSurvivors(asList(
-                new Survivor("Claw Hammer"),
-                new Survivor("Shot Gun"),
-                new Survivor("Fire Ax")
+                new Survivor(new ClawHammer()),
+                new Survivor(new Shotgun()),
+                new Survivor(new FireAxe())
                                 ));
         zone.setZombies(asList(
                 new Zombie("Runner"),
