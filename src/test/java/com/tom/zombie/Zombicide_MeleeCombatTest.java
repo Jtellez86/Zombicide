@@ -5,6 +5,11 @@ import com.tom.zombie.weapons.ClawHammer;
 import com.tom.zombie.weapons.FireAxe;
 import com.tom.zombie.weapons.Pan;
 import com.tom.zombie.weapons.Shotgun;
+import com.tom.zombie.zombies.Abomination;
+import com.tom.zombie.zombies.Fatty;
+import com.tom.zombie.zombies.Runner;
+import com.tom.zombie.zombies.Walker;
+import com.tom.zombie.zombies.Zombie;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -51,8 +56,8 @@ public class Zombicide_MeleeCombatTest {
                 new Survivor(pan)
                                 ));
         zone.setZombies(asList(
-                new Zombie("Runner"),
-                new Zombie("Walker")
+                new Runner(),
+                new Walker()
                               ));
 
         zombicide.setZone(zone);
@@ -91,12 +96,11 @@ public class Zombicide_MeleeCombatTest {
                 new Survivor(fireAxe)
                                 ));
         zone.setZombies(asList(
-                new Zombie("Runner"),
-                new Zombie("Walker"),
-                new Zombie("Runner"),
-                new Zombie("Fatty"),
-                new Zombie("Abomination")
-                              ));
+                new Walker(),
+                new Runner(),
+                new Fatty(),
+                new Abomination()
+        ));
 
         zombicide.setZone(zone);
 

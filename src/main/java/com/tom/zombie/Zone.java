@@ -1,5 +1,6 @@
 package com.tom.zombie;
 
+import com.tom.zombie.zombies.Zombie;
 import lombok.Data;
 
 import java.util.ArrayList;

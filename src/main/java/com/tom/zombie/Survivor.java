@@ -1,6 +1,7 @@
 package com.tom.zombie;
 
 import com.tom.zombie.weapons.Weapon;
+import com.tom.zombie.zombies.Zombie;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
@@ -29,30 +30,11 @@ public class Survivor {
         zone.getZombies().stream()
                 .filter(Zombie::isAlive)
                 .findFirst()
-                .ifPresent(zombie -> attack(damageFromRoll ,zombie));
+                .ifPresent(zombie -> attack(damageFromRoll, zombie));
     }
 
     public void attack(Integer damageFromRoll, Zombie zombieBeingHit) {
         System.out.println("Attacking " + zombieBeingHit + " with damage of " + damageFromRoll);
-
-        switch (zombieBeingHit.getType()) {
-            case "Walker" :
-            case "Runner" :
-                zombieBeingHit.killed();
-                return;
-
-            case "Fatty":
-                if (playerWeapon.getDamage() >= 2) {
-                    zombieBeingHit.killed();
-                }
-                return;
-
-            case "Abomination":
-                if (playerWeapon.getDamage() >= 3) {
-                    zombieBeingHit.killed();
-                }
-                return;
-        }
-        throw new AssertionError("Unknown Zombie type " + zombieBeingHit.getType());
+        zombieBeingHit.takeDamage(damageFromRoll);
     }
 }

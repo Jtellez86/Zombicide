@@ -3,7 +3,9 @@ package com.tom.zombie;
 import com.tom.zombie.util.WeaponDamageCalculator;
 import com.tom.zombie.weapons.Pan;
 import com.tom.zombie.weapons.Shotgun;
-import org.junit.Before;
+import com.tom.zombie.zombies.Fatty;
+import com.tom.zombie.zombies.Walker;
+import com.tom.zombie.zombies.Zombie;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -13,7 +15,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.fail;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -27,7 +28,7 @@ public class SurvivorTest {
 
     @Test
     public void shouldKillWalkerZombie() {
-        Zombie zombie1 = new Zombie("Walker");
+        Zombie zombie1 = new Walker();
         Zone zoneWithZombie = new Zone();
         zoneWithZombie.getZombies().add(zombie1);
 
@@ -44,7 +45,7 @@ public class SurvivorTest {
 
     @Test
     public void shouldNotKillFattyZombieWithPan() {
-        Zombie fattyZombie = new Zombie("Fatty");
+        Zombie fattyZombie = new Fatty();
         Zone zoneWithZombie = new Zone();
 
         zoneWithZombie.getZombies().add(fattyZombie);
@@ -64,12 +65,13 @@ public class SurvivorTest {
     public void shouldKillFattyZombieWithShotgun() {
         Shotgun shotgun = new Shotgun();
         survivor = new Survivor(shotgun);
-        Zombie fattyZombie = new Zombie("Fatty");
+        Zombie fattyZombie = new Fatty();
 
         Zone zoneWithZombie = new Zone();
 
         zoneWithZombie.getZombies().add(fattyZombie);
 
+        shotgun.setCalculator(calculator);
         when(calculator.calculateDamageFromRoll(2, 4, 2)).thenReturn(asList(2));
 
         survivor.launchAttack(zoneWithZombie);
