@@ -25,28 +25,28 @@ public class WeaponDamageCalculatorTest {
     public void shouldCalculateDamageForSuccessfulPanAttack() {
         when(dice.roll(1)).thenReturn(asList(6));
 
-        assertThat(calculator.calculate(1, 6, 1),is(asList(1)));
+        assertThat(calculator.calculateDamageFromRoll(1, 6, 1),is(asList(1)));
     }
 
     @Test
     public void shouldCalculateDamageForFailedPanAttack() {
         when(dice.roll(1)).thenReturn(asList(1));
 
-        assertThat(calculator.calculate(1, 6, 1).isEmpty(),is(true));
+        assertThat(calculator.calculateDamageFromRoll(1, 6, 1).isEmpty(),is(true));
     }
 
     @Test
     public void shouldCalculateDamageForSuccessKatanaAttack() {
         when(dice.roll(2)).thenReturn(asList(6, 6));
 
-        assertThat(calculator.calculate(2, 4, 1),is(asList(1, 1)));
+        assertThat(calculator.calculateDamageFromRoll(2, 4, 1),is(asList(1, 1)));
     }
 
     @Test
     public void shouldCalculateDamageForFailedKatanaAttack() {
         when(dice.roll(2)).thenReturn(asList(1, 1));
 
-        assertThat(calculator.calculate(2, 4, 1).isEmpty(),is(true));
+        assertThat(calculator.calculateDamageFromRoll(2, 4, 1).isEmpty(),is(true));
     }
 
 }

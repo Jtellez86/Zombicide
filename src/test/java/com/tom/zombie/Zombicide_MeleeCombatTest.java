@@ -1,11 +1,13 @@
 package com.tom.zombie;
 
+import com.tom.zombie.util.WeaponDamageCalculator;
 import com.tom.zombie.weapons.ClawHammer;
 import com.tom.zombie.weapons.FireAxe;
 import com.tom.zombie.weapons.Pan;
 import com.tom.zombie.weapons.Shotgun;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import static java.util.Arrays.asList;
@@ -18,24 +20,35 @@ import static org.mockito.MockitoAnnotations.initMocks;
 public class Zombicide_MeleeCombatTest {
 
     @Mock
-    Dice dice;
+    WeaponDamageCalculator calculator;
+
+    @InjectMocks
+    Zombicide zombicide;
 
     @Before
     public void given() {
         initMocks(this);
+        zombicide = new Zombicide();
     }
 
     @Test
     public void shouldKillAllZombies() {
-        Zombicide zombicide = new Zombicide();
-        zombicide.dice = dice;
-        when(dice.roll(1)).thenReturn(asList(6));
-        when(dice.roll(3)).thenReturn(asList(5,4,4));
+
+        zombicide = new Zombicide();
+
+        when(calculator.calculateDamageFromRoll(1, 6, 1)).thenReturn(asList(6));
+        when(calculator.calculateDamageFromRoll(3, 5, 1)).thenReturn(asList(5,4,4));
 
         Zone zone = new Zone();
+        ClawHammer clawHammer = new ClawHammer();
+        Pan pan = new Pan();
+
+        clawHammer.setCalculator(calculator);
+        pan.setCalculator(calculator);
+
         zone.setSurvivors(asList(
-                new Survivor(new ClawHammer()),
-                new Survivor(new Pan())
+                new Survivor(clawHammer),
+                new Survivor(pan)
                                 ));
         zone.setZombies(asList(
                 new Zombie("Runner"),
@@ -56,16 +69,26 @@ public class Zombicide_MeleeCombatTest {
     @Test
     public void shouldKillAllButAbomination() {
         Zombicide zombicide = new Zombicide();
-        zombicide.dice = dice;
-        when(dice.roll(3)).thenReturn(asList(5,5,5));
-        when(dice.roll(2)).thenReturn(asList(4));
-        when(dice.roll(1)).thenReturn(asList(6));
+
+        when(calculator.calculateDamageFromRoll(3, 5, 1)).thenReturn(asList(5,5,5));
+        when(calculator.calculateDamageFromRoll(2, 4, 2)).thenReturn(asList(4));
+        when(calculator.calculateDamageFromRoll(1, 4, 2)).thenReturn(asList(6));
 
         Zone zone = new Zone();
+
+        ClawHammer clawHammer = new ClawHammer();
+        clawHammer.setCalculator(calculator);
+
+        Shotgun shotgun = new Shotgun();
+        shotgun.setCalculator(calculator);
+
+        FireAxe fireAxe = new FireAxe();
+        fireAxe.setCalculator(calculator);
+
         zone.setSurvivors(asList(
-                new Survivor(new ClawHammer()),
-                new Survivor(new Shotgun()),
-                new Survivor(new FireAxe())
+                new Survivor(clawHammer),
+                new Survivor(shotgun),
+                new Survivor(fireAxe)
                                 ));
         zone.setZombies(asList(
                 new Zombie("Runner"),

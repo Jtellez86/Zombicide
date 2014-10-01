@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
+import java.util.List;
+
 @Getter
 @ToString
 @RequiredArgsConstructor
@@ -15,8 +17,23 @@ public class Survivor {
 
     final Weapon playerWeapon;
 
-    public void attack(Zombie zombieBeingHit) {
-        System.out.println("Attacking " + zombieBeingHit + " with damage of " + playerWeapon.getDamage());
+    public void launchAttack(Zone zone) {
+
+        List<Integer> damageFromWeapon = this.getPlayerWeapon().determineDamageFromWeapon();
+        System.out.println("\n" + this.getPlayerWeapon().getWeaponName() + " launchAttack damage " + damageFromWeapon);
+
+        damageFromWeapon.stream().forEach(damageFromRoll -> attackZombies(damageFromRoll, zone));
+    }
+
+    private void attackZombies(Integer damageFromRoll, Zone zone) {
+        zone.getZombies().stream()
+                .filter(Zombie::isAlive)
+                .findFirst()
+                .ifPresent(zombie -> attack(damageFromRoll ,zombie));
+    }
+
+    public void attack(Integer damageFromRoll, Zombie zombieBeingHit) {
+        System.out.println("Attacking " + zombieBeingHit + " with damage of " + damageFromRoll);
 
         switch (zombieBeingHit.getType()) {
             case "Walker" :

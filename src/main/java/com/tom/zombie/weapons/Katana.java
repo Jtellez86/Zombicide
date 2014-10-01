@@ -26,6 +26,6 @@ public class Katana implements Weapon {
 
     @Override
     public List<Integer> determineDamageFromWeapon() {
-        return calculator.calculate(DICE_ROLLED, SUCCESSFUL_ROLL, DAMAGE);
+        return calculator.calculateDamageFromRoll(DICE_ROLLED, SUCCESSFUL_ROLL, DAMAGE);
     }
 }
