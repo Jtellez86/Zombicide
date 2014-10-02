@@ -23,14 +23,12 @@ public class Survivor {
         List<Integer> damageFromWeapon = this.getPlayerWeapon().determineDamageFromWeapon();
         System.out.println("\n" + this.getPlayerWeapon().getWeaponName() + " launchAttack damage " + damageFromWeapon);
 
-        damageFromWeapon.stream().forEach(damageFromRoll -> attackZombies(damageFromRoll, zone));
-    }
-
-    private void attackZombies(Integer damageFromRoll, Zone zone) {
-        zone.getZombies().stream()
-                .filter(Zombie::isAlive)
-                .findFirst()
-                .ifPresent(zombie -> attack(damageFromRoll, zombie));
+        damageFromWeapon.stream()
+                        .forEach(damageFromRoll ->
+                                    zone.getZombies().stream()
+                                                     .filter(Zombie::isAlive)
+                                                     .findFirst()
+                                                     .ifPresent(zombie -> attack(damageFromRoll, zombie)));
     }
 
     public void attack(Integer damageFromRoll, Zombie zombieBeingHit) {
